@@ -466,7 +466,12 @@ class IC_BrivGemFarm_Class
         prevSB := g_SF.Memory.ReadSBStacks()
         while ( stacks < targetStacks AND ElapsedTime < 300000 AND g_SF.Memory.ReadCurrentZone() > g_BrivUserSettings[ "MinStackZone" ] )
         {
-            g_SF.KillCurrentBoss()
+            ; "current boss" might be unkillable in case something failed (bad walks in TT leading to armored boss, or first run without
+            ; enough stacks to reach stack zone). CheckifStuck() will deal with with the boss eventually, but restart again without enough stacks.
+            ;
+            ; FallBack should be safer option, and just as effective when stacking online.
+            ; g_SF.KillCurrentBoss()
+            g_SF.FallBackFromBossZone()
             stacks := g_BrivUserSettings[ "AutoCalculateBrivStacks" ] ? g_SF.Memory.ReadSBStacks() : this.GetNumStacksFarmed()
             if ( g_SF.Memory.ReadSBStacks() > prevSB)
                 StartTime := A_TickCount
