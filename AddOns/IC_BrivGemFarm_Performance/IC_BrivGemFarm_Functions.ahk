@@ -232,11 +232,17 @@ class IC_BrivGemFarm_Class
                 continue
             }
             g_SF.ToggleAutoProgress( 1 )
-            if(g_SF.CheckifStuck())
+            checkStuckOverride := g_BrivUserSettings[ "SkipGameStuckRestart" ]
+            if ( g_SF.CheckifStuck( !checkStuckOverride ) )
             {
-                g_SharedData.TriggerStart := true
-                g_SharedData.StackFail := StackFailStates.FAILED_TO_PROGRESS ; 3
-                g_SharedData.StackFailStats.TALLY[g_SharedData.StackFail] += 1
+                if ( !checkStuckOverride ) {
+                    g_SharedData.TriggerStart := true
+                    g_SharedData.StackFail := StackFailStates.FAILED_TO_PROGRESS ; 3
+                    g_SharedData.StackFailStats.TALLY[g_SharedData.StackFail] += 1
+                } else {
+                    MsgBox, "Game is stuck, ending run"
+                    break
+                }
             }
             Sleep, 20 ; here to keep the script responsive.
         }
