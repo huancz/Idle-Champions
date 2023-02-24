@@ -574,7 +574,7 @@ class IC_SharedFunctions_Class
     }
 
     ;A test if stuck on current area. After 35s, toggles autoprogress every 5s. After 45s, attempts falling back up to 2 times. After 65s, restarts level.
-    CheckifStuck(isStuck := false)
+    CheckifStuck(isStuck := false, automaticRestart := true)
     {
         static lastCheck := 0
         static fallBackTries := 0
@@ -610,11 +610,13 @@ class IC_SharedFunctions_Class
         }
         if (dtCurrentZoneTime > 65)
         {
-            this.RestartAdventure( "Game is stuck z[" . this.Memory.ReadCurrentZone() . "]" )
-            this.SafetyCheck()
-            g_PreviousZoneStartTime := A_TickCount
-            lastCheck := 0
-            fallBackTries := 0
+            if ( automaticRestart ) {
+                this.RestartAdventure( "Game is stuck z[" . this.Memory.ReadCurrentZone() . "]" )
+                this.SafetyCheck()
+                g_PreviousZoneStartTime := A_TickCount
+                lastCheck := 0
+                fallBackTries := 0
+            }
             return true
         }
         return false

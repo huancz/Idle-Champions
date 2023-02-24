@@ -68,6 +68,8 @@ ReloadBrivGemFarmSettings(loadFromFile := True)
         g_BrivUserSettings[ "DisableDashWait" ] := false
     if ( g_BrivUserSettings[ "RestoreLastWindowOnGameOpen" ] == "" )
         g_BrivUserSettings[ "RestoreLastWindowOnGameOpen" ] := true
+    if ( g_BrivUserSettings[ "SkipGameStuckRestart" ] == "" )
+        g_BrivUserSettings[ "SkipGameStuckRestart" ] := false
     if ( g_BrivUserSettings[ "AutoCalculateBrivStacks" ] == "" )
         g_BrivUserSettings[ "AutoCalculateBrivStacks" ] := False
     if (g_BrivUserSettings[ "AutoCalculateWorstCase" ] == "" )

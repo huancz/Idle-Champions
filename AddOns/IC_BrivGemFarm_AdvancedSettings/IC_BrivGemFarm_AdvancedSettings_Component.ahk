@@ -7,6 +7,7 @@ class IC_BrivGemFarm_AdvancedSettings_Component
         g_BrivUserSettings[ "DoChestsContinuous" ] := OptionSettingCheck_DoChestsContinuous
         g_BrivUserSettings[ "HiddenFarmWindow" ] := OptionSettingCheck_HiddenFarmWindow
         g_BrivUserSettings[ "RestoreLastWindowOnGameOpen" ] := OptionSettingCheck_RestoreLastWindowOnGameOpen
+        g_BrivUserSettings[ "SkipGameStuckRestart" ] := OptionSettingCheck_SkipGameStuckRestart
         g_BrivUserSettings[ "ForceOfflineGemThreshold" ] := OptionSettingEdit_ForceOfflineGemThreshold
         g_BrivUserSettings[ "ForceOfflineRunThreshold" ] := OptionSettingEdit_ForceOfflineRunThreshold
         g_BrivUserSettings[ "BrivJumpBuffer" ] := OptionSettingEdit_BrivJumpBuffer
@@ -33,6 +34,7 @@ class IC_BrivGemFarm_AdvancedSettings_Component
             GuiControl, ICScriptHub:, OptionSettingCheck_DoChestsContinuous, % g_BrivUserSettings[ "DoChestsContinuous" ]
             GuiControl, ICScriptHub:, OptionSettingCheck_HiddenFarmWindow, % g_BrivUserSettings[ "HiddenFarmWindow" ]
             GuiControl, ICScriptHub:, OptionSettingCheck_RestoreLastWindowOnGameOpen, % g_BrivUserSettings[ "RestoreLastWindowOnGameOpen" ]
+            GuiControl, ICScriptHub:, OptionSettingCheck_SkipGameStuckRestart, % g_BrivUserSettings[ "SkipgameStuckRestart" ]
             GuiControl, ICScriptHub:, OptionSettingEdit_ForceOfflineGemThreshold, % g_BrivUserSettings[ "ForceOfflineGemThreshold" ]
             GuiControl, ICScriptHub:, OptionSettingEdit_ForceOfflineRunThreshold, % g_BrivUserSettings[ "ForceOfflineRunThreshold" ]
             GuiControl, ICScriptHub:, OptionSettingEdit_BrivJumpBuffer, % g_BrivUserSettings[ "BrivJumpBuffer" ]
@@ -51,6 +53,7 @@ class IC_BrivGemFarm_AdvancedSettings_Component
     AddToolTips() {
             GUIFunctions.AddToolTip( "OptionSettingCheck_DoChestsContinuous", "Whether The script will buy and open as many as it can within the stack sleep time set or just 99 max.")
             GUIFunctions.AddToolTip( "OptionSettingCheck_HiddenFarmWindow", "Disable the visibility of the second script window")
+            GUIFunctions.AddToolTip( "OptionSettingCheck_SkipGameStuckRestart", "replace standard restart_on_stuck behaviour with msgbox and script termination")
             GUIFunctions.AddToolTip( "OptionSettingCheck_RestoreLastWindowOnGameOpen", "Whether the script will try to switch focus back to the last active window immediately when the game opens")
             GUIFunctions.AddToolTip( "OptionSettingText_ForceOfflineGemThreshold", "Stack offline only when this many gems are available for chest purchase (0 = disable)")
             GUIFunctions.AddToolTip( "OptionSettingText_ForceOfflineRunThreshold", "Stack offline once in every N runs as reported by Resets done of current core (0 or 1 = disable)")
@@ -61,5 +64,12 @@ class IC_BrivGemFarm_AdvancedSettings_Component
             GUIFunctions.AddToolTip( "OptionSettingText_WindowYPosition", "Where the gem farm script will appear vertically on your screen")            
             GUIFunctions.AddToolTip( "OptionSettingText_ManualBrivJumpValue", "Set Briv's jump level for stack calculations. Useful for feat swapping setups. 0 is the default value which will ignore this setting.")
             GUIFunctions.AddToolTip( "OptionSettingEdit_IgnoreBrivHaste", "Ignore haste stacks when deciding to stack. Will force stacking one time each run.")
+    }
+
+    Refresh() {
+        GuiControl,ICScriptHub:, OptionSettingCheck_DoChestsContinuous, % g_BrivUserSettings[ "DoChestsContinuous" ]
+        GuiControl,ICScriptHub:, OptionSettingCheck_HiddenFarmWindow, % g_BrivUserSettings[ "HiddenFarmWindow" ]
+        GuiControl,ICScriptHub:, OptionSettingCheck_RestoreLastWindowOnGameOpen, % g_BrivUserSettings[ "RestoreLastWindowOnGameOpen" ]
+        GuiControl,ICScriptHub:, OptionSettingCheck_SkipGameStuckRestart, % g_BrivUserSettings[ "SkipGameStuckRestart" ]
     }
 }
