@@ -15,6 +15,7 @@ Gui, ICScriptHub:Font, w400
 
 ;g_BrivUserSettings[ "ForceOfflineGemThreshold" ]
 ;g_BrivUserSettings[ "ForceOfflineRunThreshold" ]
+;g_BrivUserSettings[ "SkipGameStuckRestart" ]
 ;g_BrivUserSettings[ "BrivJumpBuffer" ]
 ;g_BrivUserSettings[ "DashWaitBuffer" ]
 ;g_BrivUserSettings[ "DoChestsContinuous" ]
@@ -27,6 +28,7 @@ Gui, ICScriptHub:Font, w400
 Gui, ICScriptHub:Add, Checkbox, vOptionSettingCheck_DoChestsContinuous x15 y+5, DoChestsContinuous
 Gui, ICScriptHub:Add, Checkbox, vOptionSettingCheck_HiddenFarmWindow x15 y+5, HiddenFarmWindow
 Gui, ICScriptHub:Add, Checkbox, vOptionSettingCheck_RestoreLastWindowOnGameOpen x15 y+5, RestoreLastWindowOnGameOpen
+Gui, ICScriptHub:Add, Checkbox, vOptionSettingCheck_SkipGameStuckRestart x15 y+5, SkipGameStuckRestart
 
 GUIFunctions.UseThemeTextColor("InputBoxTextColor")
 
@@ -68,4 +70,15 @@ Gui, ICScriptHub:Add, Text, x10 y+30, Save settings using main Briv Gem Farm tab
 
 ; ############################################################
 
+Gui, ICScriptHub:Add, Button , x10 y+10 gBrivGemFarmAdvancedSettingsSave, Save
+
 IC_BrivGemFarm_AdvancedSettings_Component.AddToolTips()
+IC_BrivGemFarm_AdvancedSettings_Component.Refresh()
+
+; ############################################################
+;                          Buttons
+; ############################################################
+
+BrivGemFarmAdvancedSettingsSave(){
+    IC_BrivGemFarm_AdvancedSettings_Component.SaveAdvancedSettings()
+}
