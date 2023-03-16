@@ -1,0 +1,9 @@
+{
+	"Name":"BushBuddy",
+	"Version": "v1.0.1",
+    "Includes" : "IC_BushBuddy_Component.ahk",
+    "Author" : "Thatman",
+    "Url" : "https://github.com/",
+    "Info" : "Automatic pilfer stacking on a bush level.",
+    "Dependencies" : {}
+}
