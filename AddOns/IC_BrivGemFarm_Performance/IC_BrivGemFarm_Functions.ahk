@@ -206,6 +206,12 @@ class IC_BrivGemFarm_Class
                 g_SF.ToggleAutoProgress( 1, true ) ; Toggle autoprogress to skip boss bag
             if (g_SF.Memory.ReadResetting())
                 this.ModronResetCheck()
+            maxDashWaitZone := Max(g_SF.ModronResetZone - g_BrivUserSettings[ "DashWaitBuffer" ], 0)
+            if (g_SF.ShouldDashWait() && CurrentZone > 1 && CurrentZone < maxDashWaitZone && !g_SF.IsDashActive())
+            {
+                ; MsgBox, "maxDashWaitZone=" . maxDashWait
+                g_SF.DoDashWait( maxDashWaitZone )
+            }
             if(CurrentZone > PreviousZone) ; needs to be greater than because offline could stacking getting stuck in descending zones.
             {
                 PreviousZone := CurrentZone
@@ -614,8 +620,8 @@ class IC_BrivGemFarm_Class
             g_SF.DirectedInput(,release :=0, keyspam*) ;keysdown
         }
         g_SF.ModronResetZone := g_SF.Memory.GetModronResetArea() ; once per zone in case user changes it mid run.
-        if (g_SF.ShouldDashWait())
-            g_SF.DoDashWait( Max(g_SF.ModronResetZone - g_BrivUserSettings[ "DashWaitBuffer" ], 0) )
+        ; if (g_SF.ShouldDashWait())
+        ;     g_SF.DoDashWait( Max(g_SF.ModronResetZone - g_BrivUserSettings[ "DashWaitBuffer" ], 0) )
         g_SF.ToggleAutoProgress( 1, false, true )
     }
 
