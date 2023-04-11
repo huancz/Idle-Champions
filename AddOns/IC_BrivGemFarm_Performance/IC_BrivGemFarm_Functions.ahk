@@ -219,6 +219,11 @@ class IC_BrivGemFarm_Class
                 g_SharedData.TriggerStart := false
                 g_SharedData.LoopString := "Main Loop"
             }
+            ; personal hack to dashwait after z1 (after we have potions on). Sideeffect: repeat the wait if dash is lost during run (try to avoid
+            ; the second scenario by employing Esmerelda if it happens frequently).
+            maxDashWaitZone := Max(g_SF.ModronResetZone - g_BrivUserSettings[ "DashWaitBuffer" ], 0)
+            if (g_SF.ShouldDashWait() && CurrentZone > 1 && CurrentZone < maxDashWaitZone && !g_SF.IsDashActive() )
+                g_SF.DoDashWait( Max(g_SF.ModronResetZone - g_BrivUserSettings[ "DashWaitBuffer" ], 0) )
             if (g_SharedData.StackFail != 2)
                 g_SharedData.StackFail := Max(this.TestForSteelBonesStackFarming(), g_SharedData.StackFail)
             if (g_SharedData.StackFail == 2 OR g_SharedData.StackFail == 4 OR g_SharedData.StackFail == 6 ) ; OR g_SharedData.StackFail == 3
@@ -429,7 +434,8 @@ class IC_BrivGemFarm_Class
             this.StackNormal()
         ; SetFormation needs to occur before dashwait in case game erronously placed party on boss zone after stack restart
         g_SF.SetFormation(g_BrivUserSettings) 
-        if (g_SF.ShouldDashWait())
+        maxDashWaitZone := Max(g_SF.ModronResetZone - g_BrivUserSettings[ "DashWaitBuffer" ], 0)
+        if (g_SF.ShouldDashWait() && CurrentZone > 1 && CurrentZone < maxDashWaitZone && !g_SF.IsDashActive() )
             g_SF.DoDashWait( Max(g_SF.ModronResetZone - g_BrivUserSettings[ "DashWaitBuffer" ], 0) )
         g_SF.ToggleAutoProgress( 1 )
     }
@@ -615,8 +621,8 @@ class IC_BrivGemFarm_Class
             g_SF.DirectedInput(,release :=0, keyspam*) ;keysdown
         }
         g_SF.ModronResetZone := g_SF.Memory.GetModronResetArea() ; once per zone in case user changes it mid run.
-        if (g_SF.ShouldDashWait())
-            g_SF.DoDashWait( Max(g_SF.ModronResetZone - g_BrivUserSettings[ "DashWaitBuffer" ], 0) )
+        ; if (g_SF.ShouldDashWait())
+        ;     g_SF.DoDashWait( Max(g_SF.ModronResetZone - g_BrivUserSettings[ "DashWaitBuffer" ], 0) )
         g_SF.ToggleAutoProgress( 1, false, true )
     }
 
